@@ -2,7 +2,6 @@ import { $ } from 'execa';
 
 exports.handler = async function (event, context) {
   try {
-    const streamingUrl = ''
     await $`sudo apt-get install build-essential procps curl file git`;
     await $`sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`;
     await $`echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $HOME/.bash_profile`;
