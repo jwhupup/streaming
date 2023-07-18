@@ -1,38 +1,42 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-defineProps<{ msg: string }>()
-
-const count = ref(0)
-</script>
-
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <video ref="videoEl" controls muted width="800">
+    your brower is not support video
+  </video>
+  <button @click="handleSound">open sound</button>
 </template>
 
-<style scoped>
-.read-the-docs {
-  color: #888;
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import flv from 'flv.js'
+
+const videoEl = ref<HTMLMediaElement>()
+const flvPlayer = ref<flv.Player>()
+
+onMounted(() => {
+  if (videoEl.value && flv.isSupported()) {
+    flvPlayer.value = flv.createPlayer({
+        type: 'flv',
+        isLive: true,
+        hasAudio: false,
+        hasVideo: true,
+        url: 'ws://localhost:8000/live/streaming.flv'
+    }, {
+      enableStashBuffer: false,
+      stashInitialSize: 128
+    });
+    flvPlayer.value.attachMediaElement(videoEl.value);
+    flvPlayer.value.load();
+    flvPlayer.value.play();
+  }
+})
+
+const handleSound = () => {
+  if (videoEl.value) {
+    videoEl.value.muted = false
+  }
 }
+</script>
+
+<style scoped>
+
 </style>
