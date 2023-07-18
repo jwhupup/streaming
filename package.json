@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "build:client": "cd ./client && pnpm install && pnpm run build",
-    "build:server": "cd ./server && pnpm install && node app.js",
-    "build": "pnpm run build:client && pnpm run build:server"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
