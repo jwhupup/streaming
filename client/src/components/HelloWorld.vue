@@ -2,7 +2,9 @@
   <video ref="videoEl" controls muted width="800">
     your brower is not support video
   </video>
-  <button @click="handleSound">open sound</button>
+  <div>
+    <button @click="handleStreaming">开直播</button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -30,7 +32,7 @@ onMounted(() => {
   }
 })
 
-const handleSound = () => {
+const handleStreaming = () => {
   if (videoEl.value) {
     videoEl.value.muted = false
   }
